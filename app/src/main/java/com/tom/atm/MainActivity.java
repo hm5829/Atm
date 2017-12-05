@@ -6,12 +6,31 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    private final static int REQUEST_LOGIN = 102;
     boolean logon = false;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_LOGIN) {
+            if (resultCode == RESULT_OK) {
+//                Toast.makeText(this, "成功", Toast.LENGTH_LONG).show();
+                String userid = data.getStringExtra("LOGIN_USERID");
+                String passwd = data.getStringExtra("LOGIN_PASSWD");
+                Log.d("RESULT", userid + "/" + passwd);
+            } else {
+                finish();
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (!logon){
             Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+//            startActivity(intent);
+            startActivityForResult(intent, REQUEST_LOGIN);
         }
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
