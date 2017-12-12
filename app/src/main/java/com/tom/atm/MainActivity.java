@@ -38,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
                     String edname = data.getStringExtra("EXTRA_NAME");
                     String edphone = data.getStringExtra("EXTRA_PHONE");
                     Toast.makeText(this, "暱稱為: " + edname + " 電話為: " + edphone, Toast.LENGTH_LONG).show();
+                    getSharedPreferences("info", MODE_PRIVATE)
+                            .edit()
+                            .putString("NAME", edname)
+                            .putString("PHONE", edphone)
+                            .apply();
                 }
         }
 
