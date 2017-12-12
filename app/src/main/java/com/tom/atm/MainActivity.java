@@ -14,21 +14,33 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private final static int REQUEST_LOGIN = 102;
+    private final static int REQUEST_USERINFO = 100;
     boolean logon = false;
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_LOGIN) {
-            if (resultCode == RESULT_OK) {
-//                Toast.makeText(this, "成功", Toast.LENGTH_LONG).show();
-                String userid = data.getStringExtra("LOGIN_USERID");
-                String passwd = data.getStringExtra("LOGIN_PASSWD");
-                Log.d("RESULT", userid + "/" + passwd);
-            } else {
-                finish();
-            }
+        switch(requestCode){
+            case REQUEST_LOGIN:
+                if (resultCode == RESULT_OK){
+                    String userid = data.getStringExtra("LOGIN_USERID");
+                    String passwd = data.getStringExtra("LOGIN_PASSWD");
+                    Toast.makeText(this,"登入帳號為: " + userid, Toast.LENGTH_LONG).show();
+                    getSharedPreferences("atm", MODE_PRIVATE)
+                            .edit()
+                            .putString("USERID", userid)
+                            .apply();
+                }else{
+                    finish();
+                }
+                break;
+            case REQUEST_USERINFO:
+                if (resultCode == RESULT_OK){
+                    String edname = data.getStringExtra("EXTRA_NAME");
+                    String edphone = data.getStringExtra("EXTRA_PHONE");
+                    Toast.makeText(this, "暱稱為: " + edname + " 電話為: " + edphone, Toast.LENGTH_LONG).show();
+                }
         }
+
     }
 
     @Override
@@ -46,8 +58,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(MainActivity.this,UserInfoActivity.class);
+                startActivityForResult(i,REQUEST_USERINFO);
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
             }
         });
     }
