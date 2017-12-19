@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+//        startActivity(new Intent(this, Ch8Activity.class));
         if (!logon){
             Intent intent = new Intent(this, LoginActivity.class);
 //            startActivity(intent);
