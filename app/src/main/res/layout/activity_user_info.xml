@@ -10,8 +10,8 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="34dp"
         android:text="暱稱"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -78,5 +78,16 @@
         android:layout_marginTop="25dp"
         app:layout_constraintLeft_toRightOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/edphone" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="0dp"
+        android:onClick="addr"
+        android:text="住址"
+        app:layout_constraintLeft_toRightOf="@+id/button3"
+        app:layout_constraintTop_toTopOf="@+id/button3" />
 
 </android.support.constraint.ConstraintLayout>
